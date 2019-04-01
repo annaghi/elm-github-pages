@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "watch": "elm-live src/Main.elm --pushstate --port=8081 --dir=local --open -- --output=local/assets/main.js --debug",
+    "build": "rm -rf docs/assets && npm run optimize && cp -a local/assets docs",
+    "optimize": "elm make src/Main.elm --optimize --output=local/assets/main.js"
+  }
+}

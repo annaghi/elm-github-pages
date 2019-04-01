@@ -1,0 +1,11 @@
+# elm-package generated files
+elm-stuff
+
+# elm-repl generated files
+repl-temp-*
+
+# VS Code settings
+.vscode
+
+# elm-make generated files
+local/**/main.js
