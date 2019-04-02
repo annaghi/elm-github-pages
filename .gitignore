@@ -9,3 +9,9 @@ repl-temp-*
 
 # elm-make generated files
 local/**/main.js
+
+# node packages
+node_modules
+
+# npm lock file
+package-lock.json
