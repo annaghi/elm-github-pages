@@ -6050,6 +6050,24 @@ var elm$html$Html$Attributes$href = function (url) {
 		'href',
 		_VirtualDom_noJavaScriptUri(url));
 };
+var author$project$Main$externalLinkView = function (path) {
+	return A2(
+		elm$html$Html$li,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$a,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$href(path)
+					]),
+				_List_fromArray(
+					[
+						elm$html$Html$text(path)
+					]))
+			]));
+};
 var elm$url$Url$Builder$toQueryPair = function (_n0) {
 	var key = _n0.a;
 	var value = _n0.b;
@@ -6069,7 +6087,7 @@ var elm$url$Url$Builder$absolute = F2(
 	function (pathSegments, parameters) {
 		return '/' + (A2(elm$core$String$join, '/', pathSegments) + elm$url$Url$Builder$toQuery(parameters));
 	});
-var author$project$Main$linkView = function (path) {
+var author$project$Main$internalLinkView = function (path) {
 	return A2(
 		elm$html$Html$li,
 		_List_Nil,
@@ -6118,18 +6136,18 @@ var author$project$Main$view = function (model) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						author$project$Main$linkView('/'),
-						author$project$Main$linkView('/about'),
-						author$project$Main$linkView('/blog/0'),
-						author$project$Main$linkView('/blog/1'),
-						author$project$Main$linkView('/blog/2')
+						author$project$Main$internalLinkView('/'),
+						author$project$Main$internalLinkView('/about'),
+						author$project$Main$internalLinkView('/blog/0'),
+						author$project$Main$internalLinkView('/blog/1'),
+						author$project$Main$internalLinkView('/blog/2')
 					])),
 				A2(
 				elm$html$Html$ul,
 				_List_Nil,
 				_List_fromArray(
 					[
-						author$project$Main$linkView('https://github.com/annaghi/elm-github-pages')
+						author$project$Main$externalLinkView('https://github.com/annaghi/elm-github-pages')
 					])),
 				A2(elm$html$Html$hr, _List_Nil, _List_Nil),
 				function () {
