@@ -133,13 +133,13 @@ view model =
         [ Html.text "The current URL is: "
         , Html.b [] [ Html.text (Url.toString model.url) ]
         , Html.ul []
-            [ linkView "/"
-            , linkView "/about"
-            , linkView "/blog/0"
-            , linkView "/blog/1"
-            , linkView "/blog/2"
+            [ internalLinkView "/"
+            , internalLinkView "/about"
+            , internalLinkView "/blog/0"
+            , internalLinkView "/blog/1"
+            , internalLinkView "/blog/2"
             ]
-        , Html.ul [] [ linkView "https://github.com/annaghi/elm-github-pages" ]
+        , Html.ul [] [ externalLinkView "https://github.com/annaghi/elm-github-pages" ]
         , Html.hr [] []
         , case model.page of
             NotFound ->
@@ -157,13 +157,22 @@ view model =
     }
 
 
-linkView : String -> Html.Html msg
-linkView path =
+internalLinkView : String -> Html.Html msg
+internalLinkView path =
     Html.li []
         [ Html.a
             [ Html.Attributes.href <|
                 Url.Builder.absolute [ Base.base, String.dropLeft 1 path ] []
             ]
+            [ Html.text path ]
+        ]
+
+
+externalLinkView : String -> Html.Html msg
+externalLinkView path =
+    Html.li []
+        [ Html.a
+            [ Html.Attributes.href path ]
             [ Html.text path ]
         ]
 
