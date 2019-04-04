@@ -4334,12 +4334,12 @@ var author$project$Main$UrlChanged = function (a) {
 	return {$: 1, a: a};
 };
 var author$project$Main$NotFound = {$: 3};
+var author$project$Base$base = 'elm-github-pages';
 var author$project$Main$About = {$: 1};
 var author$project$Main$Blog = function (a) {
 	return {$: 2, a: a};
 };
 var author$project$Main$Home = {$: 0};
-var author$project$Main$base = 'elm-github-pages';
 var elm$core$Basics$EQ = 1;
 var elm$core$Basics$LT = 0;
 var elm$core$Elm$JsArray$foldr = _JsArray_foldr;
@@ -4669,20 +4669,20 @@ var author$project$Main$route = elm$url$Url$Parser$oneOf(
 			A2(
 			elm$url$Url$Parser$map,
 			author$project$Main$Home,
-			elm$url$Url$Parser$s(author$project$Main$base)),
+			elm$url$Url$Parser$s(author$project$Base$base)),
 			A2(
 			elm$url$Url$Parser$map,
 			author$project$Main$About,
 			A2(
 				elm$url$Url$Parser$slash,
-				elm$url$Url$Parser$s(author$project$Main$base),
+				elm$url$Url$Parser$s(author$project$Base$base),
 				elm$url$Url$Parser$s('about'))),
 			A2(
 			elm$url$Url$Parser$map,
 			author$project$Main$Blog,
 			A2(
 				elm$url$Url$Parser$slash,
-				elm$url$Url$Parser$s(author$project$Main$base),
+				elm$url$Url$Parser$s(author$project$Base$base),
 				A2(
 					elm$url$Url$Parser$slash,
 					elm$url$Url$Parser$s('blog'),
@@ -5986,49 +5986,18 @@ var elm$url$Url$toString = function (url) {
 					_Utils_ap(http, url.V)),
 				url.Y)));
 };
-var elm$url$Url$Builder$toQueryPair = function (_n0) {
-	var key = _n0.a;
-	var value = _n0.b;
-	return key + ('=' + value);
-};
-var elm$url$Url$Builder$toQuery = function (parameters) {
-	if (!parameters.b) {
-		return '';
-	} else {
-		return '?' + A2(
-			elm$core$String$join,
-			'&',
-			A2(elm$core$List$map, elm$url$Url$Builder$toQueryPair, parameters));
-	}
-};
-var elm$url$Url$Builder$absolute = F2(
-	function (pathSegments, parameters) {
-		return '/' + (A2(elm$core$String$join, '/', pathSegments) + elm$url$Url$Builder$toQuery(parameters));
-	});
 var author$project$Main$update = F2(
 	function (msg, model) {
 		if (!msg.$) {
 			var urlRequest = msg.a;
 			if (!urlRequest.$) {
 				var url = urlRequest.a;
-				var urlWithBase = _Utils_update(
-					url,
-					{
-						Y: A2(
-							elm$url$Url$Builder$absolute,
-							_List_fromArray(
-								[
-									author$project$Main$base,
-									A2(elm$core$String$dropLeft, 1, url.Y)
-								]),
-							_List_Nil)
-					});
 				return _Utils_Tuple2(
 					model,
 					A2(
 						elm$browser$Browser$Navigation$pushUrl,
 						model.J,
-						elm$url$Url$toString(urlWithBase)));
+						elm$url$Url$toString(url)));
 			} else {
 				var href = urlRequest.a;
 				return _Utils_Tuple2(
@@ -6081,6 +6050,25 @@ var elm$html$Html$Attributes$href = function (url) {
 		'href',
 		_VirtualDom_noJavaScriptUri(url));
 };
+var elm$url$Url$Builder$toQueryPair = function (_n0) {
+	var key = _n0.a;
+	var value = _n0.b;
+	return key + ('=' + value);
+};
+var elm$url$Url$Builder$toQuery = function (parameters) {
+	if (!parameters.b) {
+		return '';
+	} else {
+		return '?' + A2(
+			elm$core$String$join,
+			'&',
+			A2(elm$core$List$map, elm$url$Url$Builder$toQueryPair, parameters));
+	}
+};
+var elm$url$Url$Builder$absolute = F2(
+	function (pathSegments, parameters) {
+		return '/' + (A2(elm$core$String$join, '/', pathSegments) + elm$url$Url$Builder$toQuery(parameters));
+	});
 var author$project$Main$linkView = function (path) {
 	return A2(
 		elm$html$Html$li,
@@ -6091,7 +6079,15 @@ var author$project$Main$linkView = function (path) {
 				elm$html$Html$a,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$href(path)
+						elm$html$Html$Attributes$href(
+						A2(
+							elm$url$Url$Builder$absolute,
+							_List_fromArray(
+								[
+									author$project$Base$base,
+									A2(elm$core$String$dropLeft, 1, path)
+								]),
+							_List_Nil))
 					]),
 				_List_fromArray(
 					[
