@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import Base
 import Browser
 import Browser.Navigation
 import Html
@@ -28,15 +29,6 @@ main =
         , onUrlChange = UrlChanged
         , onUrlRequest = LinkClicked
         }
-
-
-
--- BASE
-
-
-base : String
-base =
-    "elm-github-pages"
 
 
 
@@ -82,12 +74,8 @@ update msg model =
         LinkClicked urlRequest ->
             case urlRequest of
                 Browser.Internal url ->
-                    let
-                        urlWithBase =
-                            { url | path = Url.Builder.absolute [ base, String.dropLeft 1 url.path ] [] }
-                    in
                     ( model
-                    , Browser.Navigation.pushUrl model.key (Url.toString urlWithBase)
+                    , Browser.Navigation.pushUrl model.key (Url.toString url)
                     )
 
                 Browser.External href ->
@@ -118,9 +106,9 @@ route : Url.Parser.Parser (Page -> a) a
 route =
     Url.Parser.oneOf
         [ Url.Parser.map Home Url.Parser.top
-        , Url.Parser.map Home (Url.Parser.s base)
-        , Url.Parser.map About (Url.Parser.s base </> Url.Parser.s "about")
-        , Url.Parser.map Blog (Url.Parser.s base </> Url.Parser.s "blog" </> Url.Parser.int)
+        , Url.Parser.map Home (Url.Parser.s Base.base)
+        , Url.Parser.map About (Url.Parser.s Base.base </> Url.Parser.s "about")
+        , Url.Parser.map Blog (Url.Parser.s Base.base </> Url.Parser.s "blog" </> Url.Parser.int)
         ]
 
 
@@ -173,7 +161,9 @@ linkView : String -> Html.Html msg
 linkView path =
     Html.li []
         [ Html.a
-            [ Html.Attributes.href path ]
+            [ Html.Attributes.href <|
+                Url.Builder.absolute [ Base.base, String.dropLeft 1 path ] []
+            ]
             [ Html.text path ]
         ]
 
