@@ -17,7 +17,7 @@ npm run watch
 npm run build
 ```
 
-#### Try
+#### Demo
 
 Follow [annaghi.github.io/elm-github-pages](https://annaghi.github.io/elm-github-pages) and make some page reloads on the internal links.
 
