@@ -115,11 +115,11 @@ route =
 toPage : Url.Url -> Page
 toPage url =
     case Url.Parser.parse route url of
-        Nothing ->
-            NotFound
-
         Just answer ->
             answer
+
+        Nothing ->
+            NotFound
 
 
 
@@ -142,9 +142,6 @@ view model =
         , Html.ul [] [ externalLinkView "https://github.com/annaghi/elm-github-pages" ]
         , Html.hr [] []
         , case model.page of
-            NotFound ->
-                notFoundView
-
             Home ->
                 Page.Home.view
 
@@ -153,6 +150,9 @@ view model =
 
             Blog number ->
                 blogView number
+
+            NotFound ->
+                notFoundView
         ]
     }
 
@@ -169,11 +169,11 @@ internalLinkView path =
 
 
 externalLinkView : String -> Html.Html msg
-externalLinkView path =
+externalLinkView href =
     Html.li []
         [ Html.a
-            [ Html.Attributes.href path ]
-            [ Html.text path ]
+            [ Html.Attributes.href href ]
+            [ Html.text href ]
         ]
 
 
