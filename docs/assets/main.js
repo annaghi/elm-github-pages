@@ -5326,11 +5326,11 @@ var elm$url$Url$Parser$parse = F2(
 	});
 var author$project$Main$toPage = function (url) {
 	var _n0 = A2(elm$url$Url$Parser$parse, author$project$Main$route, url);
-	if (_n0.$ === 1) {
-		return author$project$Main$NotFound;
-	} else {
+	if (!_n0.$) {
 		var answer = _n0.a;
 		return answer;
+	} else {
+		return author$project$Main$NotFound;
 	}
 };
 var elm$core$Basics$False = 1;
@@ -6050,7 +6050,7 @@ var elm$html$Html$Attributes$href = function (url) {
 		'href',
 		_VirtualDom_noJavaScriptUri(url));
 };
-var author$project$Main$externalLinkView = function (path) {
+var author$project$Main$externalLinkView = function (href) {
 	return A2(
 		elm$html$Html$li,
 		_List_Nil,
@@ -6060,11 +6060,11 @@ var author$project$Main$externalLinkView = function (path) {
 				elm$html$Html$a,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$href(path)
+						elm$html$Html$Attributes$href(href)
 					]),
 				_List_fromArray(
 					[
-						elm$html$Html$text(path)
+						elm$html$Html$text(href)
 					]))
 			]));
 };
@@ -6153,15 +6153,15 @@ var author$project$Main$view = function (model) {
 				function () {
 				var _n0 = model.F;
 				switch (_n0.$) {
-					case 3:
-						return author$project$Main$notFoundView;
 					case 0:
 						return author$project$Page$Home$view;
 					case 1:
 						return author$project$Page$About$view;
-					default:
+					case 2:
 						var number = _n0.a;
 						return author$project$Main$blogView(number);
+					default:
+						return author$project$Main$notFoundView;
 				}
 			}()
 			]),
